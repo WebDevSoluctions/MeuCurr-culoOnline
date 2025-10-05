@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meucurriculogratis.netlify.app/sitemap.xml

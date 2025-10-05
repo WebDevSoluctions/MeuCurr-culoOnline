@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criador de Currículo Online Profissional</title>
+
+<meta name="google-site-verification" content="Csofdg5Dh1QVHnSoGKCQPRNXCQHAE_kc28bJncqC22k" />
+<meta property="og:title" content="Criador de Currículo Online Profissional">
+<meta property="og:description" content="Crie currículos profissionais grátis. Adicione foto, baixe em PDF e crie portfólio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://meucurriculooline.netlify.app/">
+<meta property="og:image" content="https://meucurriculooline.netlify.app/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Criador de Currículo Online">
+<meta name="twitter:description" content="Crie currículos profissionais grátis.">
+
+<!-- canonical -->
+<link rel="canonical" href="https://meucurriculooline.netlify.app/">
+  <meta name="description" content="Crie currículos profissionais grátis online. Adicione sua foto, endereço, telefone e e-mail. Escolha templates modernos e baixe em PDF.">
+  <meta name="keywords" content="criador de currículo, currículo com foto, currículo online, currículo PDF, modelos de currículo profissional">
+  <meta name="author" content="Seu Nome ou Marca">
+  <meta name="robots" content="index, follow">
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- jsPDF e html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .form-section, .resume-section {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      min-width: 320px;
+    }
+
+    h2 {
+      color: #2563eb;
+    }
+
+    label {
+      font-weight: 500;
+      margin: 8px 0 4px;
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    input[type="file"] {
+      border: none;
+    }
+
+    button {
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #1e40af, #0891b2);
+    }
+
+    .resume-preview {
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      line-height: 1.6;
+      min-height: 400px;
+    }
+
+    .cv-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .cv-header img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media(max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Criador de Currículo Online</h1>
+    <p>Monte seu currículo profissional com foto e baixe em PDF</p>
+  </header>
+
+  <div class="container">
+    <div class="form-section">
+      <h2>Seus Dados</h2>
+      <form id="cvForm">
+        <label>Foto</label>
+        <input type="file" id="foto" accept="image/*">
+
+        <label>Nome</label>
+        <input type="text" id="nome">
+
+        <label>Profissão</label>
+        <input type="text" id="profissao">
+
+        <label>Endereço</label>
+        <input type="text" id="endereco">
+
+        <label>Telefone</label>
+        <input type="text" id="telefone">
+
+        <label>E-mail</label>
+        <input type="email" id="email">
+
+        <label>Resumo</label>
+        <textarea id="resumo"></textarea>
+
+        <label>Experiência</label>
+        <textarea id="experiencia"></textarea>
+
+        <label>Educação</label>
+        <textarea id="educacao"></textarea>
+
+        <label>Habilidades</label>
+        <textarea id="habilidades"></textarea>
+
+        <button type="button" onclick="gerarCV()">Gerar Currículo</button>
+        <button type="button" onclick="baixarPDF()">📄 Baixar PDF</button>
+      </form>
+    </div>
+
+    <div class="resume-section">
+      <h2>Pré-visualização</h2>
+      <div class="resume-preview" id="cvPreview">
+        Seu currículo aparecerá aqui.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Criador de Currículo Online | Hospedado no Netlify
+  </footer>
+
+  <script>
+    let fotoBase64 = "";
+
+    document.getElementById("foto").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          fotoBase64 = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function gerarCV() {
+      const nome = document.getElementById("nome").value;
+      const profissao = document.getElementById("profissao").value;
+      const endereco = document.getElementById("endereco").value;
+      const telefone = document.getElementById("telefone").value;
+      const email = document.getElementById("email").value;
+      const resumo = document.getElementById("resumo").value;
+      const experiencia = document.getElementById("experiencia").value;
+      const educacao = document.getElementById("educacao").value;
+      const habilidades = document.getElementById("habilidades").value;
+
+      const fotoHTML = fotoBase64 ? `<img src="${fotoBase64}" alt="Foto">` : "";
+
+      const layout = `
+        <div class="cv-header">
+          ${fotoHTML}
+          <div>
+            <h2>${nome}</h2>
+            <p><em>${profissao}</em></p>
+            <p>${endereco}</p>
+            <p>📞 ${telefone} | ✉️ ${email}</p>
+          </div>
+        </div>
+        <h3>Resumo</h3><p>${resumo}</p>
+        <h3>Experiência</h3><p>${experiencia}</p>
+        <h3>Educação</h3><p>${educacao}</p>
+        <h3>Habilidades</h3><p>${habilidades}</p>
+      `;
+
+      document.getElementById("cvPreview").innerHTML = layout;
+    }
+
+    async function baixarPDF() {
+      const preview = document.getElementById("cvPreview");
+
+      // Aumenta a resolução do canvas
+      const canvas = await html2canvas(preview, { scale: 3 });
+      const imgData = canvas.toDataURL("image/png");
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "pt", "a4");
+
+      // Calcula proporção correta
+      const pdfWidth = doc.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      doc.save("curriculo.pdf");
+    }
+  </script>
+</body>
+</html>
+```
